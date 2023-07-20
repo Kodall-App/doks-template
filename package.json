@@ -19,9 +19,9 @@
     "prestart": "npm run clean",
     "start": "exec-bin node_modules/.bin/hugo/hugo server --bind=0.0.0.0 --disableFastRender",
     "prebuild": "npm run clean",
-    "build": "exec-bin node_modules/.bin/hugo/hugo --gc --minify",
+    "build": "exec-bin node_modules/.bin/hugo/hugo --gc --minify -d dist",
     "build:preview": "npm run build -D -F",
-    "clean": "shx rm -rf public resources",
+    "clean": "shx rm -rf dist resources",
     "clean:install": "shx rm -rf package-lock.json node_modules ",
     "lint": "npm run -s lint:scripts && npm run -s lint:styles && npm run -s lint:markdown",
     "lint:scripts": "eslint assets/js config functions",
@@ -35,7 +35,8 @@
     "check": "exec-bin node_modules/.bin/hugo/hugo version",
     "copy:katex-fonts": "shx cp ./node_modules/katex/dist/fonts/* ./static/fonts/",
     "postinstall": "hugo-installer --version otherDependencies.hugo --extended --destination node_modules/.bin/hugo",
-    "version": "auto-changelog -p && git add CHANGELOG.md"
+    "version": "auto-changelog -p && git add CHANGELOG.md",
+    "deploy": "npm run build && one-deploy"
   },
   "devDependencies": {
     "@babel/cli": "^7.18",
@@ -63,7 +64,8 @@
     "purgecss-whitelister": "^2.4",
     "shx": "^0.3.4",
     "stylelint": "^14.9",
-    "stylelint-config-standard-scss": "^4.0"
+    "stylelint-config-standard-scss": "^4.0",
+    "one-deploy": "^1.1.2"
   },
   "otherDependencies": {
     "hugo": "0.107.0"
